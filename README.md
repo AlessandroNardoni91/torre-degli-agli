@@ -22,21 +22,22 @@ tools/check.py             controllo automatico (sola lettura)
 
 ## Le lingue
 
-Ogni pagina è **un solo file** con tre blocchi:
+Ogni pagina è **un solo file** con quattro blocchi:
 
 ```html
 <section lang="en"> … </section>
 <section lang="it"> … </section>
 <section lang="es"> … </section>
+<section lang="fr"> … </section>
 ```
 
-`js/lang.js` mostra solo la lingua scelta (`?lang=` → memoria del browser → lingua del telefono → inglese) e la ricorda da una pagina all'altra. Senza JavaScript si vedono tutte e tre.
-Titolo della scheda per lingua: attributi `data-title-en/it/es` sul tag `<html>`.
+`js/lang.js` mostra solo la lingua scelta (`?lang=` → memoria del browser → lingua del telefono → inglese) e la ricorda da una pagina all'altra. Senza JavaScript si vedono tutte e quattro.
+Titolo della scheda per lingua: attributi `data-title-en/it/es/fr` sul tag `<html>`.
 
 ## Come si modifica
 
-- **Correggere una frase**: aprire il file HTML, cercare la frase, correggerla **nelle tre sezioni** (o solo in quella lingua se è una traduzione).
-- **Nuova pagina**: copiare una pagina simile, cambiare titolo (`data-title-*`, `<h1>`), contenuto delle tre sezioni e aggiungere il pulsante nel menu (`home.html` o `elettrodomestici/index.html`).
+- **Correggere una frase**: aprire il file HTML, cercare la frase, correggerla **nelle quattro sezioni** (o solo in quella lingua se è una traduzione).
+- **Nuova pagina**: copiare una pagina simile, cambiare titolo (`data-title-*`, `<h1>`), contenuto delle quattro sezioni e aggiungere il pulsante nel menu (`home.html` o `elettrodomestici/index.html`).
 - **Immagini**: solo file già ridimensionati (foto ≤1600 px, screenshot ≤720 px), nomi ASCII minuscoli. Le coppie telefono/PC vanno in `<picture>`.
 - **Prima di pubblicare**: `python tools/check.py` dalla cartella del repo → deve dire `0 problemi` (controlla parità fra le lingue, link e immagini esistenti, `noindex`, testi vietati come indirizzo esatto e cellulari, pesi).
 - Anteprima locale: `python -m http.server 8765` nella cartella e aprire <http://localhost:8765/>.

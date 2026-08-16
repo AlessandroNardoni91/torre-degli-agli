@@ -2,7 +2,7 @@
 Uso: python tools/check.py   (dalla cartella del repo)
 
 Per ogni pagina HTML verifica:
-  - 3 <section lang="en|it|es"> (index.html è esente: è la scelta lingua)
+  - 4 <section lang="en|it|es|fr"> (index.html è esente: è la scelta lingua)
   - stesso numero di h2 / img / a per lingua (parità delle traduzioni)
   - data-title-en/it/es presenti
   - <meta name="robots" content="noindex, nofollow">
@@ -15,7 +15,7 @@ import os, re, sys
 from html.parser import HTMLParser
 
 RADICE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LINGUE = ('en', 'it', 'es')
+LINGUE = ('en', 'it', 'es', 'fr')
 VIETATI = [r'Torre degli Agli,? 8\b', r'sixth floor', r'6th floor', r'sesto piano', r'6º piano', r'sexto piso',
            r'\+39 3(?!20 406 5709)\d\d \d{3} \d{4}']  # cellulari, tranne il numero dei medici (320 406 5709)
 

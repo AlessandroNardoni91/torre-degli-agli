@@ -1,15 +1,15 @@
 /* Torre degli Agli — scelta della lingua.
-   Ogni pagina contiene tre <section lang="en|it|es">. Questo script ne lascia
+   Ogni pagina contiene quattro <section lang="en|it|es|fr">. Questo script ne lascia
    visibile una sola. Ordine di scelta: ?lang=xx nell'indirizzo → lingua
    memorizzata sul telefono → lingua del browser → inglese.
-   Senza JavaScript non succede nulla: si vedono tutte e tre le lingue. */
+   Senza JavaScript non succede nulla: si vedono tutte le lingue. */
 (function () {
-  var LINGUE = ['en', 'it', 'es'];
+  var LINGUE = ['en', 'it', 'es', 'fr'];
   var html = document.documentElement;
   html.classList.remove('no-js');
 
   function daUrl() {
-    var m = /[?&]lang=(en|it|es)\b/.exec(location.search);
+    var m = /[?&]lang=(en|it|es|fr)\b/.exec(location.search);
     return m ? m[1] : null;
   }
   function daMemoria() {
