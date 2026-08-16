@@ -10,15 +10,18 @@
 <body>
   <header class="barra">
     <a class="home" href="../home.html">← Home</a>
-    <div class="lingue" role="group" aria-label="Language">
-      <button type="button" data-lang="en" lang="en"><img class="bandiera" src="../images/bandiere/en.svg" alt="">EN</button>
-      <button type="button" data-lang="it" lang="it"><img class="bandiera" src="../images/bandiere/it.svg" alt="">IT</button>
-      <button type="button" data-lang="es" lang="es"><img class="bandiera" src="../images/bandiere/es.svg" alt="">ES</button>
-    </div>
+    <details class="lingue">
+      <summary aria-label="Language"><img class="bandiera" src="../images/bandiere/en.svg" alt=""><span class="sigla">EN</span></summary>
+      <ul>
+        <li><button type="button" data-lang="en" lang="en"><img class="bandiera" src="../images/bandiere/en.svg" alt="">English</button></li>
+        <li><button type="button" data-lang="it" lang="it"><img class="bandiera" src="../images/bandiere/it.svg" alt="">Italiano</button></li>
+        <li><button type="button" data-lang="es" lang="es"><img class="bandiera" src="../images/bandiere/es.svg" alt="">Español</button></li>
+      </ul>
+    </details>
   </header>
 
   <main>
-    <div class="card">
+    <div class="card trasparente">
 
       <!-- ===================== ENGLISH ===================== -->
       <section lang="en">

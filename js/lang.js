@@ -33,10 +33,27 @@
     document.querySelectorAll('.lingue button').forEach(function (b) {
       b.setAttribute('aria-pressed', b.getAttribute('data-lang') === lingua ? 'true' : 'false');
     });
+    // bandierina e sigla della lingua corrente sul selettore chiuso
+    var att = document.querySelector('.lingue button[data-lang="' + lingua + '"] img');
+    var img = document.querySelector('.lingue summary img');
+    var sigla = document.querySelector('.lingue summary .sigla');
+    if (att && img) img.src = att.src;
+    if (sigla) sigla.textContent = lingua.toUpperCase();
   }
 
+  var tendina = document.querySelector('details.lingue');
   document.querySelectorAll('.lingue button').forEach(function (b) {
-    b.addEventListener('click', function () { applica(b.getAttribute('data-lang')); });
+    b.addEventListener('click', function () {
+      applica(b.getAttribute('data-lang'));
+      if (tendina) tendina.open = false;
+    });
+  });
+  // la tendina si chiude toccando fuori o con Esc
+  document.addEventListener('click', function (e) {
+    if (tendina && tendina.open && !tendina.contains(e.target)) tendina.open = false;
+  });
+  document.addEventListener('keydown', function (e) {
+    if (tendina && e.key === 'Escape') tendina.open = false;
   });
 
   applica(daUrl() || daMemoria() || daBrowser());

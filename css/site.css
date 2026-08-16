@@ -71,14 +71,16 @@ body {
   align-items: center;
   white-space: nowrap;
 }
-.lingue { display: flex; gap: 4px; }
-.lingue button {
-  font: inherit;
+/* Selettore lingua a tendina: <details class="lingue"> con la bandierina della
+   lingua corrente; aperto mostra le tre lingue. lang.js aggiorna bandierina e sigla. */
+.lingue { position: relative; }
+.lingue summary {
+  list-style: none;
   font-size: .9rem;
   font-weight: bold;
   min-width: 44px;
   min-height: 44px;
-  padding: 0 6px;
+  padding: 0 8px 0 6px;
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -87,10 +89,40 @@ body {
   background: #fff;
   color: var(--viola);
   cursor: pointer;
+  user-select: none;
 }
+.lingue summary::-webkit-details-marker { display: none; }
+.lingue summary::after { content: "▾"; font-size: .8em; margin-left: 2px; }
+.lingue[open] summary::after { content: "▴"; }
+.lingue ul {
+  position: absolute; right: 0; top: calc(100% + 6px); z-index: 5;
+  margin: 0; padding: 6px; list-style: none;
+  min-width: 170px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: var(--raggio);
+  box-shadow: 0 6px 18px rgba(0,0,0,.2);
+}
+.lingue button {
+  font: inherit;
+  width: 100%;
+  min-height: 44px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: var(--testo);
+  cursor: pointer;
+  text-align: left;
+}
+.lingue button:hover, .lingue button:focus-visible { background: #f2e6f2; }
 .lingue button[aria-pressed="true"] {
   background: var(--viola);
   color: #fff;
+  font-weight: bold;
 }
 /* Senza JavaScript i pulsanti lingua non servono: si vedono tutte le lingue. */
 html.no-js .lingue { display: none; }
@@ -224,17 +256,32 @@ th { color: var(--viola); }
 .menu { display: grid; gap: 12px; max-width: 420px; margin: 0 auto; }
 .menu .pulsante { width: 100%; }
 
+/* pagine-menu (home, Elettrodomestici, Consigli): niente pannello bianco,
+   i pulsanti stanno direttamente sulla foto; titolo e note in bianco con ombra. */
+.card.trasparente { background: none; box-shadow: none; padding: 8px 0 24px; }
+.card.trasparente h1,
+.card.trasparente p {
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0,0,0,.9), 0 0 12px rgba(0,0,0,.6);
+}
+.card.trasparente h1 { font-size: 1.9rem; }
+.card.trasparente p { text-align: center; max-width: 480px; margin-left: auto; margin-right: auto; }
+.card.trasparente .nota { color: #fff; font-size: 1rem; }
+.card.trasparente .pulsante { box-shadow: 0 3px 10px rgba(0,0,0,.35); }
+
 /* ---------- pagina d'ingresso ---------- */
+/* Titolo nel quarto alto della foto (così non copre Ponte Vecchio),
+   scelta lingua nel quarto basso. */
 .ingresso {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 24px 12px;
-  gap: 28px;
+  justify-content: space-between;
+  padding: 7vh 12px 6vh;
+  padding: 7dvh 12px 6dvh;
 }
-/* Titolo direttamente sulla foto: bianco con ombra scura per la leggibilità. */
+/* Titolo direttamente sulla foto: bianco con contorno viola e ombra. */
 .benvenuto {
   text-align: center;
   padding: 0 8px;
@@ -244,16 +291,39 @@ th { color: var(--viola); }
   font-family: 'Dancing Script', cursive;
   font-weight: 700;
   color: #fff;
-  text-shadow: 0 2px 4px rgba(0,0,0,.85), 0 0 18px rgba(0,0,0,.6);
+  -webkit-text-stroke: 1.5px var(--viola);
+  paint-order: stroke fill;
+  text-shadow: 0 2px 4px rgba(0,0,0,.7), 0 0 16px rgba(0,0,0,.5);
 }
 .benvenuto .titolo { font-size: 2.8rem; line-height: 1.15; }
 .benvenuto .sotto  { font-size: 2rem; }
 @media (min-width: 601px) {
-  .benvenuto .titolo { font-size: 3.6rem; }
-  .benvenuto .sotto { font-size: 2.6rem; }
+  .benvenuto .titolo { font-size: 3.6rem; -webkit-text-stroke-width: 2px; }
+  .benvenuto .sotto { font-size: 2.6rem; -webkit-text-stroke-width: 2px; }
 }
-.scelta-lingua { display: flex; flex-direction: column; align-items: center; gap: 12px; }
-.scelta-lingua .pulsante { min-width: 220px; gap: 10px; }
-.scelta-lingua .bandiera { width: 30px; height: 20px; }
+/* tre bandiere in fila su una striscia traslucida */
+.scelta-lingua {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: rgba(255,255,255,.82);
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.3);
+  backdrop-filter: blur(4px);
+}
+.scelta-lingua a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 96px;
+  padding: 10px 8px;
+  border-radius: 10px;
+  color: var(--viola);
+  font-weight: bold;
+  text-decoration: none;
+}
+.scelta-lingua a:hover, .scelta-lingua a:focus-visible { background: var(--viola); color: #fff; }
+.scelta-lingua .bandiera { width: 44px; height: 30px; border-radius: 5px; }
 
 .nota { font-size: .92rem; color: #555; }
