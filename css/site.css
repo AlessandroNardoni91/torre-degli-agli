@@ -1,0 +1,259 @@
+/* Torre degli Agli — foglio di stile unico.
+   Per cambiare colore, font o dimensioni si modifica SOLO questo file. */
+
+/* Font in locale (cartella fonts/): funzionano anche senza Google.
+   Nunito è un font variabile: un solo file copre 400 e 700. */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 200 1000;
+  font-display: swap;
+  src: url("../fonts/nunito.woff2") format("woff2");
+}
+@font-face {
+  font-family: 'Dancing Script';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/dancing-script.woff2") format("woff2");
+}
+
+:root {
+  --viola: #800080;
+  --viola-scuro: #5c005c;
+  --nero: #111;
+  --testo: #222;
+  --carta: #fff;
+  --sfondo: #f4f4f4;
+  --font: 'Nunito', Arial, Helvetica, sans-serif;
+  --raggio: 8px;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-family: var(--font);
+  font-size: 1.0625rem;          /* 17px: un filo più grande per la lettura in strada */
+  line-height: 1.5;
+  color: var(--testo);
+  background: var(--sfondo) url("../images/sfondi/firenze-telefono.jpg") center / cover no-repeat fixed;
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 601px) {
+  body { background-image: url("../images/sfondi/firenze-desktop.jpg"); }
+}
+/* (i percorsi qui sopra sono relativi a questo file CSS, quindi valgono
+   anche per le pagine nelle sottocartelle) */
+
+/* ---------- barra in alto: Home + lingue ---------- */
+.barra {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: rgba(255,255,255,.85);
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  backdrop-filter: blur(4px);
+}
+.barra a.home {
+  font-weight: bold;
+  color: var(--viola);
+  text-decoration: none;
+  padding: 10px 4px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+.lingue { display: flex; gap: 4px; }
+.lingue button {
+  font: inherit;
+  font-size: .9rem;
+  font-weight: bold;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 2px solid var(--viola);
+  border-radius: var(--raggio);
+  background: #fff;
+  color: var(--viola);
+  cursor: pointer;
+}
+.lingue button[aria-pressed="true"] {
+  background: var(--viola);
+  color: #fff;
+}
+/* Senza JavaScript i pulsanti lingua non servono: si vedono tutte le lingue. */
+html.no-js .lingue { display: none; }
+
+/* bandierine (SVG in images/bandiere/) */
+.bandiera {
+  width: 24px;
+  height: 16px;
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,.25);
+  object-fit: cover;
+  flex: none;
+}
+
+/* ---------- contenuto ---------- */
+main {
+  width: 100%;
+  max-width: 820px;
+  margin: 16px auto;
+  padding: 0 12px;
+  flex: 1;
+}
+.card {
+  background: var(--carta);
+  border-radius: var(--raggio);
+  box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  padding: 20px 18px 24px;
+}
+h1 { font-size: 1.6rem; margin: 0 0 12px; color: var(--nero); text-align: center; }
+h2 { font-size: 1.2rem; margin: 26px 0 8px; color: var(--viola); }
+p, li { margin: 8px 0; }
+ul { padding-left: 1.2em; }
+ul.pulita { list-style: none; padding: 0; }
+hr { border: 0; border-top: 1px solid #ddd; margin: 22px 0; }
+a { color: var(--viola); }
+strong { color: var(--nero); }
+
+/* Blocchi per lingua: con JS ne resta visibile uno solo. */
+section[lang][hidden] { display: none; }
+/* Senza JS si vedono tutti, separati da una riga. */
+html.no-js section[lang] + section[lang] { border-top: 3px double var(--viola); margin-top: 28px; padding-top: 12px; }
+
+/* immagini */
+figure { margin: 14px auto; text-align: center; }
+figure img, .card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+figure.schermo img { max-width: 260px; }        /* screenshot verticali del telefono */
+figure.mappa img { max-width: 100%; }           /* mappe: telefono/pc scelte da <picture> */
+figcaption { font-size: .9rem; color: #555; margin-top: 4px; }
+
+/* elettrodomestici: schemi del manuale.
+   Sul telefono due immagini una sotto l'altra; sul PC una sola affiancata (<picture>). */
+figure.schema img { display: block; margin: 0 auto 10px; }
+figure.schema img:last-child { margin-bottom: 0; }
+@media (min-width: 601px) { figure.schema img.solo-tel { display: none; } }
+/* piccole icone dei tasti/simboli dentro il testo */
+.card img.icona {
+  height: 1.5em; width: auto;
+  vertical-align: middle;
+  border: 0; border-radius: 0;
+  margin: 0 2px;
+}
+
+/* ---------- galleria ---------- */
+.griglia {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
+  padding: 0;
+  margin: 16px 0 0;
+  list-style: none;
+}
+.griglia a { display: block; }
+.griglia img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  display: block;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+/* visore a schermo intero (js/galleria.js) */
+.visore {
+  position: fixed; inset: 0; z-index: 10;
+  background: rgba(0,0,0,.92);
+  display: flex; align-items: center; justify-content: center;
+}
+.visore[hidden] { display: none; }
+.visore img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.visore button {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 48px; height: 64px;
+  font-size: 2rem; line-height: 1;
+  color: #fff; background: rgba(0,0,0,.4); border: 0; border-radius: 6px; cursor: pointer;
+}
+.visore .prec { left: 6px; }
+.visore .succ { right: 6px; }
+.visore .chiudi { top: 8px; right: 8px; transform: none; width: 48px; height: 48px; font-size: 1.6rem; }
+.visore .contatore { position: absolute; bottom: 10px; left: 0; right: 0; text-align: center; color: #ddd; font-size: .9rem; }
+
+/* tabelle (manuali) */
+table { border-collapse: collapse; width: 100%; margin-top: 12px; }
+td, th { padding: 10px 6px; border-bottom: 1px solid #ddd; text-align: left; vertical-align: top; }
+th { color: var(--viola); }
+
+/* ---------- pulsanti ---------- */
+.pulsanti { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 22px; }
+.pulsante {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  min-width: 160px;
+  padding: 10px 22px;
+  font-size: 1.05rem;
+  font-weight: bold;
+  color: #fff;
+  background: var(--viola);
+  border: 2px solid var(--nero);
+  border-radius: var(--raggio);
+  text-decoration: none;
+  text-align: center;
+}
+.pulsante:hover, .pulsante:focus-visible { background: var(--viola-scuro); }
+
+/* menu della home: pulsanti impilati e larghi */
+.menu { display: grid; gap: 12px; max-width: 420px; margin: 0 auto; }
+.menu .pulsante { width: 100%; }
+
+/* ---------- pagina d'ingresso ---------- */
+.ingresso {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 12px;
+  gap: 28px;
+}
+/* Titolo direttamente sulla foto: bianco con ombra scura per la leggibilità. */
+.benvenuto {
+  text-align: center;
+  padding: 0 8px;
+}
+.benvenuto .titolo,
+.benvenuto .sotto {
+  font-family: 'Dancing Script', cursive;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0,0,0,.85), 0 0 18px rgba(0,0,0,.6);
+}
+.benvenuto .titolo { font-size: 2.8rem; line-height: 1.15; }
+.benvenuto .sotto  { font-size: 2rem; }
+@media (min-width: 601px) {
+  .benvenuto .titolo { font-size: 3.6rem; }
+  .benvenuto .sotto { font-size: 2.6rem; }
+}
+.scelta-lingua { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.scelta-lingua .pulsante { min-width: 220px; gap: 10px; }
+.scelta-lingua .bandiera { width: 30px; height: 20px; }
+
+.nota { font-size: .92rem; color: #555; }
