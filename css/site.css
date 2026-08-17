@@ -38,7 +38,7 @@ html, body { margin: 0; padding: 0; }
    Scuro come la foto, così non compaiono bande chiare sopra e sotto. */
 html {
   background: var(--notte);
-  overscroll-behavior-y: none;
+  overscroll-behavior: none;     /* niente "rimbalzo" a fine scroll */
 }
 
 body {
@@ -56,9 +56,19 @@ body {
 body::before {
   content: "";
   position: fixed;
-  inset: 0;
+  top: -6vh;
+  left: 0;
+  right: 0;
+  /* Altezza fissa e più alta dello schermo: NON usare dvh/inset, altrimenti quando il
+     telefono nasconde la barra dell'indirizzo il livello si ridimensiona e la foto
+     sembra muoversi. vh/lvh restano costanti mentre si scorre. */
+  height: 112vh;
   z-index: -1;
+  pointer-events: none;
   background: var(--notte) url("../images/sfondi/firenze-telefono.jpg") center / cover no-repeat;
+}
+@supports (height: 100lvh) {
+  body::before { top: -6lvh; height: 112lvh; }
 }
 @media (min-width: 601px) {
   body::before { background-image: url("../images/sfondi/firenze-desktop.jpg"); }
