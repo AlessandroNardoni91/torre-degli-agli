@@ -25,6 +25,7 @@
   --testo: #222;
   --carta: #fff;
   --sfondo: #f4f4f4;
+  --notte: #2b2632;              /* tono scuro della foto: si vede solo nel rimbalzo dello scroll */
   --font: 'Nunito', Arial, Helvetica, sans-serif;
   --raggio: 8px;
 }
@@ -33,6 +34,13 @@
 
 html, body { margin: 0; padding: 0; }
 
+/* Colore sotto tutto: si vede solo se il telefono "rimbalza" a fine scroll.
+   Scuro come la foto, così non compaiono bande chiare sopra e sotto. */
+html {
+  background: var(--notte);
+  overscroll-behavior-y: none;
+}
+
 body {
   min-height: 100vh;
   min-height: 100dvh;
@@ -40,12 +48,20 @@ body {
   font-size: 1.0625rem;          /* 17px: un filo più grande per la lettura in strada */
   line-height: 1.5;
   color: var(--testo);
-  background: var(--sfondo) url("../images/sfondi/firenze-telefono.jpg") center / cover no-repeat fixed;
   display: flex;
   flex-direction: column;
 }
+/* La foto sta su un livello fermo dietro al contenuto: resta immobile mentre
+   si scorre (background-attachment: fixed sui telefoni fa saltare lo sfondo). */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--notte) url("../images/sfondi/firenze-telefono.jpg") center / cover no-repeat;
+}
 @media (min-width: 601px) {
-  body { background-image: url("../images/sfondi/firenze-desktop.jpg"); }
+  body::before { background-image: url("../images/sfondi/firenze-desktop.jpg"); }
 }
 /* (i percorsi qui sopra sono relativi a questo file CSS, quindi valgono
    anche per le pagine nelle sottocartelle) */
