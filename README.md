@@ -39,6 +39,7 @@ Titolo della scheda per lingua: attributi `data-title-en/it/es/fr` sul tag `<htm
 - **Correggere una frase**: aprire il file HTML, cercare la frase, correggerla **nelle quattro sezioni** (o solo in quella lingua se è una traduzione).
 - **Nuova pagina**: copiare una pagina simile, cambiare titolo (`data-title-*`, `<h1>`), contenuto delle quattro sezioni e aggiungere il pulsante nel menu (`home.html` o `elettrodomestici/index.html`).
 - **Immagini**: solo file già ridimensionati (foto ≤1600 px, screenshot ≤720 px), nomi ASCII minuscoli. Le coppie telefono/PC vanno in `<picture>`.
+- **Confronto fra le lingue**: `python tools/lingue.py` → verifica che le quattro lingue offrano le stesse pagine, gli stessi link, le stesse immagini e gli stessi titoli, e segnala le differenze volute.
 - **Prima di pubblicare**: `python tools/check.py` dalla cartella del repo → deve dire `0 problemi` (controlla parità fra le lingue, link e immagini esistenti, `noindex`, testi vietati come indirizzo esatto e cellulari, pesi).
 - Anteprima locale: `python -m http.server 8765` nella cartella e aprire <http://localhost:8765/>.
 

@@ -279,7 +279,7 @@ th { color: var(--viola); }
 .pulsante:hover, .pulsante:focus-visible { background: var(--viola-scuro); }
 
 /* menu della home: pulsanti impilati e larghi */
-.menu { display: grid; gap: 12px; max-width: 420px; margin: 0 auto; }
+.menu { display: grid; gap: 10px; max-width: 420px; margin: 0 auto; }
 .menu .pulsante { width: 100%; }
 
 /* pagine-menu (home, Elettrodomestici, Consigli): niente pannello bianco,
