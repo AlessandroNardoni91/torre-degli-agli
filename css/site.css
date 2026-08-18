@@ -297,15 +297,6 @@ th { color: var(--viola); }
 /* pagine-menu (home, Elettrodomestici, Consigli): niente pannello bianco,
    i pulsanti stanno direttamente sulla foto; titolo e note in bianco con ombra. */
 .card.trasparente { background: none; box-shadow: none; padding: 4px 0 12px; }
-/* Titolo tolto dalla vista ma lasciato nella pagina (serve a chi usa il lettore
-   di schermo e ai motori di ricerca); recupera spazio sui menu lunghi. */
-.nascosto {
-  position: absolute;
-  width: 1px; height: 1px;
-  margin: -1px; padding: 0; border: 0;
-  overflow: hidden; clip-path: inset(50%);
-  white-space: nowrap;
-}
 .card.trasparente h1,
 .card.trasparente p {
   color: #fff;
