@@ -87,7 +87,7 @@ def main():
             m = re.search(v, src)
             if m: probl.append(f'testo vietato: "{m.group(0)}"')
         # link e risorse
-        base = os.path.dirname(pg); tot = peso(pg)
+        base = os.path.dirname(pg); tot = peso(pg); gia_contati = set()
         for h in p.link + p.img:
             if h.startswith(('http://', 'https://')):
                 if 'github.io' in h: probl.append(f'link assoluto al sito: {h}')
@@ -97,7 +97,9 @@ def main():
             if not h0: continue
             dest = os.path.normpath(os.path.join(base, h0))
             if not esiste_case(dest): probl.append(f'manca: {h}')
-            elif h in p.img_en or h.endswith(('.css', '.js')): tot += peso(dest)
+            # ogni file si conta una volta sola: la stessa immagine compare in tutte le lingue
+            elif (h in p.img_en or h.endswith(('.css', '.js'))) and dest not in gia_contati:
+                gia_contati.add(dest); tot += peso(dest)
         for l in LINGUE:
             s = p.sezioni.get(l, {'h2': '-', 'img': '-', 'a': '-'})
             print(f"{rel if l == 'en' else '':32} {l:4} {s['h2']:>3} {s['img']:>3} {s['a']:>3}  {tot/1024:>7.0f}K" if l == 'en' else f"{'':32} {l:4} {s['h2']:>3} {s['img']:>3} {s['a']:>3}")
